@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { formatCurrency } from "../utilities/formatCurrency";
+import { useShoppingCart } from "../context/ShoppingCartContext";
 
 type StoreItemProps = {
   id: number;
@@ -13,11 +14,13 @@ type StoreItemProps = {
 
 export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
   const [isSelected, setIsSelected] = useState<boolean>(false);
-  const quantity = 0;
-
-  useEffect(() => {
-    console.log(isSelected);
-  }, [isSelected]);
+  const {
+    getItemQuantity,
+    increaseCartQuantity,
+    decreaseCartQuantity,
+    removeFromCart,
+  } = useShoppingCart();
+  const quantity = getItemQuantity(id);
 
   return (
     <Card
@@ -51,13 +54,58 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
         <div className="mt-auto">
           {quantity === 0 ? (
             <Button
+              className="w-100"
               onClick={() => {
                 setIsSelected(!isSelected);
+                increaseCartQuantity(id);
               }}
             >
               + Add to Cart
             </Button>
-          ) : null}
+          ) : (
+            <div
+              style={{ gap: "0.5rem" }}
+              className="d-flex align-items-center flex-column"
+            >
+              <div
+                style={{ gap: "0.5rem" }}
+                className="d-flex align-items-center justify-content-center"
+              >
+                <Button
+                  onClick={() => {
+                    decreaseCartQuantity(id);
+                    console.log(quantity - 1);
+                    if (quantity - 1 === 0) {
+                      setIsSelected(false);
+                    }
+                  }}
+                >
+                  -
+                </Button>
+                <div>
+                  <span className="fs-3">{quantity}</span> in cart
+                </div>
+                <Button
+                  onClick={() => {
+                    increaseCartQuantity(id);
+                  }}
+                >
+                  +
+                </Button>
+              </div>
+              <Button
+                onClick={() => {
+                  setIsSelected(false);
+                  removeFromCart(id);
+                }}
+                variant="danger"
+                size="sm"
+              >
+                {" "}
+                Remove
+              </Button>
+            </div>
+          )}
         </div>
       </Card.Body>
     </Card>
