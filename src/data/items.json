@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "name": "18K Gold",
+    "prices": {
+      "1": 130,
+      "6": 780,
+      "8": 1040,
+      "10": 1300
+    },
+    "imgUrl": "/imgs/book.jpg"
+  },
+  {
+    "id": 2,
+    "name": "14K Gold",
+    "prices": {
+      "1": 100,
+      "6": 600,
+      "8": 800,
+      "10": 1000
+    },
+    "imgUrl": "/imgs/banana.jpg"
+  },
+  {
+    "id": 3,
+    "name": "10K Gold",
+    "prices": {
+      "1": 75,
+      "6": 450,
+      "8": 600,
+      "10": 750
+    },
+    "imgUrl": "/imgs/car.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Silver",
+    "prices": {
+      "1": 40,
+      "6": 240,
+      "8": 320,
+      "10": 400
+    },
+    "imgUrl": "/imgs/computer.jpg"
+  },
+  {
+    "id": 5,
+    "name": "NPG",
+    "prices": {
+      "1": 30,
+      "6": 180,
+      "8": 240,
+      "10": 300
+    },
+    "imgUrl": "/imgs/book.jpg"
+  }
+]
