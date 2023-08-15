@@ -23,12 +23,12 @@ export function CartItem({ id, quantity }: CartItemProps) {
         <div>
           {item.name}{" "}
           {quantity > 1 && (
-            <span style={{ fontSize: ".65rem", opacity: '0.85' }}>
+            <span style={{ fontSize: ".65rem", opacity: "0.85" }}>
               x{quantity}
             </span>
           )}
         </div>
-        <div style={{ fontSize: ".75rem", opacity: '0.85' }}>
+        <div style={{ fontSize: ".75rem", opacity: "0.85" }}>
           {formatCurrency(item.prices["1"])}
         </div>
       </div>

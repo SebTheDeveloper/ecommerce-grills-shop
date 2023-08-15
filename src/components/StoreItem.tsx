@@ -40,16 +40,18 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
       <Card.Body
         className="d-flex flex-column"
         style={{
-          backgroundColor: "rgb(10, 10, 10)",
+          backgroundColor: "rgb(8, 8, 8)",
           color: "rgb(240, 240, 240)",
         }}
       >
         <Card.Title className="d-flex justify-content-between align-items-baseline mb-4">
-          <span className="fs-6">{name}</span>
-          <span className="fs-6">1 for {formatCurrency(prices["1"])}</span>
-          <span className="fs-6">6 for {formatCurrency(prices["6"])}</span>
-          <span className="fs-6">8 for {formatCurrency(prices["8"])}</span>
-          <span className="fs-6">10 for {formatCurrency(prices["10"])}</span>
+          <span className="fs-4">{name}</span>
+          <span className="fs-6" style={{ opacity: "0.9" }}>
+            1 for {formatCurrency(prices["1"])}
+          </span>
+          {/* <span className="fs-6" style={{opacity: '0.9'}}>6 for {formatCurrency(prices["6"])}</span>
+          <span className="fs-6" style={{opacity: '0.9'}}>8 for {formatCurrency(prices["8"])}</span>
+          <span className="fs-6" style={{opacity: '0.9'}}>10 for {formatCurrency(prices["10"])}</span> */}
         </Card.Title>
         <div className="mt-auto">
           {quantity === 0 ? (
