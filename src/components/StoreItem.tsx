@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { formatCurrency } from "../utilities/formatCurrency";
 import { useShoppingCart } from "../context/ShoppingCartContext";
@@ -13,7 +12,6 @@ type StoreItemProps = {
 };
 
 export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
-  const [isSelected, setIsSelected] = useState<boolean>(false);
   const {
     getItemQuantity,
     increaseCartQuantity,
@@ -27,8 +25,8 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
       className="h-100"
       style={{
         animation: "fade-in 0.3s ease-in-out",
-        border: isSelected ? "1px solid gold" : "1px solid white",
-        boxShadow: isSelected ? "0 0 8px gold" : "",
+        border: quantity > 0 ? "1px solid gold" : "1px solid white",
+        boxShadow: quantity > 0 ? "0 0 8px gold" : "",
       }}
     >
       <Card.Img
@@ -58,7 +56,6 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
             <Button
               className="w-100"
               onClick={() => {
-                setIsSelected(!isSelected);
                 increaseCartQuantity(id);
               }}
             >
@@ -77,9 +74,6 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
                   onClick={() => {
                     decreaseCartQuantity(id);
                     console.log(quantity - 1);
-                    if (quantity - 1 === 0) {
-                      setIsSelected(false);
-                    }
                   }}
                 >
                   -
@@ -97,7 +91,6 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
               </div>
               <Button
                 onClick={() => {
-                  setIsSelected(false);
                   removeFromCart(id);
                 }}
                 variant="danger"

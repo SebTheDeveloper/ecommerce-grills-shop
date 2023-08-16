@@ -46,9 +46,12 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
       show={isOpen}
       placement="end"
       onHide={closeCart}
-      style={{ backgroundColor: "rgb(240,240,240)", color: "rgb(5,5,5)" }}
+      style={{
+        backgroundColor: "rgba(30, 30, 30, 0.95)",
+        color: "rgb(250,250,250)",
+      }}
     >
-      <Offcanvas.Header closeButton>
+      <Offcanvas.Header closeButton closeVariant={"white"}>
         <Offcanvas.Title>Cart</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
@@ -56,7 +59,10 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
           {cartItems.map((item) => (
             <CartItem key={item.id} {...item} />
           ))}
-          <div className="ms-auto fw-bold fs-5">
+          <div
+            className="ms-auto fw-bold fs-4"
+            style={{ marginTop: "0.25rem" }}
+          >
             Total{" "}
             {formatCurrency(
               cartItems.reduce((total, cartItem) => {
@@ -65,7 +71,9 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
               }, 0)
             )}
           </div>
-          <Button onClick={goToCheckoutLink}>Checkout</Button>
+          <Button onClick={goToCheckoutLink} style={{ fontSize: "1.25rem" }}>
+            Checkout
+          </Button>
         </Stack>
       </Offcanvas.Body>
     </Offcanvas>
