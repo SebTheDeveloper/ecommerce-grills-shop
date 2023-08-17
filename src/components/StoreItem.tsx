@@ -16,6 +16,7 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
     getItemQuantity,
     increaseCartQuantity,
     decreaseCartQuantity,
+    setCartQuantity,
     removeFromCart,
   } = useShoppingCart();
   const quantity = getItemQuantity(id);
@@ -44,12 +45,18 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
       >
         <Card.Title className="d-flex justify-content-between align-items-baseline mb-4">
           <span className="fs-4">{name}</span>
-          <span className="fs-6" style={{ opacity: "0.9" }}>
-            1 for {formatCurrency(prices["1"])}
-          </span>
-          {/* <span className="fs-6" style={{opacity: '0.9'}}>6 for {formatCurrency(prices["6"])}</span>
-          <span className="fs-6" style={{opacity: '0.9'}}>8 for {formatCurrency(prices["8"])}</span>
-          <span className="fs-6" style={{opacity: '0.9'}}>10 for {formatCurrency(prices["10"])}</span> */}
+          <select
+            className="fs-6"
+            value={quantity}
+            style={{ opacity: "0.9" }}
+            onChange={(e) => setCartQuantity(id, Number(e.target.value))}
+          >
+            <option value="0">Select Quantity</option>
+            <option value="1">1 for {formatCurrency(prices["1"])}</option>
+            <option value="6">6 for {formatCurrency(prices["6"])}</option>
+            <option value="8">8 for {formatCurrency(prices["8"])}</option>
+            <option value="10">10 for {formatCurrency(prices["10"])}</option>
+          </select>
         </Card.Title>
         <div className="mt-auto">
           {quantity === 0 ? (
@@ -73,7 +80,6 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
                 <Button
                   onClick={() => {
                     decreaseCartQuantity(id);
-                    console.log(quantity - 1);
                   }}
                 >
                   -
