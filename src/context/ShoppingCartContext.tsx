@@ -20,6 +20,8 @@ type ShoppingCartContextType = {
   decreaseCartQuantity: (id: number) => void;
   setCartQuantity: (id: number, newQuantity: number) => void;
   removeFromCart: (id: number) => void;
+  toggleLoading: () => void;
+  isLoading: boolean;
   cartQuantity: number;
   cartItems: CartItem[];
 };
@@ -36,6 +38,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     "shopping-cart",
     []
   );
+  const [isLoading, setIsLoading] = useState(false);
 
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
@@ -44,8 +47,9 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
 
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
-
   const clearCart = () => setCartItems([]);
+
+  const toggleLoading = () => setIsLoading(() => !isLoading);
 
   function getItemQuantity(id: number) {
     return cartItems.find((item) => item.id === id)?.quantity || 0;
@@ -161,6 +165,8 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         openCart,
         closeCart,
         clearCart,
+        toggleLoading,
+        isLoading,
       }}
     >
       {children}

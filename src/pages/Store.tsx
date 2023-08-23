@@ -1,10 +1,11 @@
 // import { useState } from "react";
 
 import { Row, Col } from "react-bootstrap";
-import storeItems from "../data/items.json"
+import storeItems from "../data/items.json";
 import { StoreItem } from "../components/StoreItem";
 
 export function Store() {
+
   return (
     <>
       <h1 className="mb-3">Shop</h1>

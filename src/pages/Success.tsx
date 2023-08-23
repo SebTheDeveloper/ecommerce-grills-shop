@@ -11,7 +11,13 @@ export function Success() {
 
   return (
     <>
-      <h1>Your payment was successful!</h1>
+      <h1
+        style={{
+          margin: "1.25rem 0",
+        }}
+      >
+        Your payment was successful!
+      </h1>
       <Button href="/">Back to Shop</Button>
     </>
   );

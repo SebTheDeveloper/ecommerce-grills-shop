@@ -3,13 +3,18 @@ import { Container } from "react-bootstrap";
 import { Store } from "./pages/Store";
 import { About } from "./pages/About";
 import { Navbar } from "./components/Navbar";
-import { ShoppingCartProvider } from "./context/ShoppingCartContext";
+import { useShoppingCart } from "./context/ShoppingCartContext";
 import { Success } from "./pages/Success";
 // import { Footer } from './components/Footer'
 
 export default function App() {
+  const { isLoading } = useShoppingCart();
+
   return (
-    <ShoppingCartProvider>
+    <>
+      <div className={isLoading ? `loading-circle` : ""}>
+        <div className={isLoading ? `load-wheel` : ""}></div>
+      </div>
       <Navbar />
       <Container className="mb-4">
         <Routes>
@@ -19,6 +24,6 @@ export default function App() {
         </Routes>
       </Container>
       {/* <Footer /> */}
-    </ShoppingCartProvider>
+    </>
   );
 }
