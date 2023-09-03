@@ -78,13 +78,16 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   }
 
   function getAddOnTotal(): number {
-    return cartItems?.reduce((total, curr) => {
+    if (!Array.isArray(cartItems) || cartItems.length === 0) return 0;
+    return cartItems.reduce((total, curr) => {
       return (
         total +
-        curr.addOns.reduce(
-          (total, addOn) => (addOn.isAdded ? total + addOn.price : total),
-          0
-        )
+        (curr.addOns
+          ? curr.addOns.reduce(
+              (total, addOn) => (addOn.isAdded ? total + addOn.price : total),
+              0
+            )
+          : 0)
       );
     }, 0);
   }
