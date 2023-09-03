@@ -34,7 +34,9 @@ export function CartItem({ id, quantity }: CartItemProps) {
         <div>
           {item.name}{" "}
           {quantity > 1 && (
-            <span style={{ fontSize: "0.95rem", opacity: "0.85" }}>
+            <span
+              style={{ fontSize: "0.95rem", opacity: "0.85", color: "gold" }}
+            >
               x{quantity}
             </span>
           )}

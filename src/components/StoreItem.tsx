@@ -2,6 +2,7 @@ import { Button, Card, Form } from "react-bootstrap";
 import { formatCurrency } from "../utilities/formatCurrency";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { useEffect, useRef, useState } from "react";
+import { AddOn } from "./AddOn";
 
 type StoreItemProps = {
   id: number;
@@ -15,12 +16,14 @@ type StoreItemProps = {
 export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
   const {
     getItemQuantity,
+    getSelectedAddOns,
     increaseCartQuantity,
     decreaseCartQuantity,
     setCartQuantity,
     removeFromCart,
   } = useShoppingCart();
   const quantity = getItemQuantity(id);
+  const selectedAddOns = getSelectedAddOns(id);
 
   return (
     <Card
@@ -53,12 +56,13 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
             {name}
           </span>
           <Form.Select
-            className="fs-6"
+            key={quantity}
             value={quantity}
             size="lg"
+            id={"form-select-animation"}
             style={{
               opacity: "0.9",
-              margin: "1em 0",
+              margin: "1.75em 0",
               border: quantity > 0 ? "1px solid gold" : "none",
               cursor: "pointer",
               backgroundColor: "rgb(240,240,240)",
@@ -74,12 +78,17 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
             <option value="8">8 for {formatCurrency(prices["8"])}</option>
             <option value="10">10 for {formatCurrency(prices["10"])}</option>
           </Form.Select>
+          {quantity > 0 &&
+            ["Open Face", "Diamond Dust", "Chipped Tooth", "Missing Tooth"].map(
+              (addOn, index) => <AddOn id={id} addOn={addOn} key={index} />
+            )}
         </Card.Title>
         <div className="mt-auto">
           {quantity === 0 ? (
             <AddToCartButton
               id={id}
               increaseCartQuantity={increaseCartQuantity}
+              quantity={quantity}
             />
           ) : (
             <div
@@ -110,6 +119,29 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
                   +
                 </Button>
               </div>
+              {selectedAddOns && (
+                <div
+                  id={"form-select-animation"}
+                  key={selectedAddOns.length}
+                  style={{
+                    border:
+                      selectedAddOns.length > 0
+                        ? "1px solid gold"
+                        : "1px solid transparent",
+                    borderRadius: "7px",
+                    padding: "0.1em 0.3em",
+                    margin: "0.7rem",
+                    fontSize: "0.95em",
+                    boxShadow:
+                      selectedAddOns.length > 0
+                        ? "0 0 4px gold"
+                        : "0 0 4px rgb(240, 240, 240)",
+                    opacity: "0.9",
+                  }}
+                >
+                  {selectedAddOns.length} add-ons selected
+                </div>
+              )}
               <Button
                 onClick={() => {
                   removeFromCart(id);
@@ -128,21 +160,25 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
   );
 }
 
-type Props = {
+type AddToCartButtonProps = {
   id: number;
+  quantity: number;
   increaseCartQuantity: (id: number) => void;
 };
 
-function AddToCartButton({ id, increaseCartQuantity }: Props) {
+function AddToCartButton({
+  id,
+  increaseCartQuantity,
+  quantity,
+}: AddToCartButtonProps) {
   const [isAnimating, setIsAnimating] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     const button = buttonRef.current;
 
     const handleAnimationEnd = () => {
-      setIsComplete(true);
+      setIsAnimating(false);
       increaseCartQuantity(id);
     };
 
@@ -161,15 +197,17 @@ function AddToCartButton({ id, increaseCartQuantity }: Props) {
     setIsAnimating(true);
   };
 
-  if (isComplete) return null;
-
   return (
-    <Button
-      className={`w-100 ${isAnimating ? "fade-out" : ""}`}
-      onClick={handleButtonClick}
-      ref={buttonRef}
-    >
-      + Add to Cart
-    </Button>
+    <>
+      {quantity === 0 && (
+        <Button
+          className={`w-100 ${isAnimating && "fade-out"}`}
+          onClick={handleButtonClick}
+          ref={buttonRef}
+        >
+          + Add to Cart
+        </Button>
+      )}
+    </>
   );
 }

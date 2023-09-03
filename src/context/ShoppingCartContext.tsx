@@ -6,9 +6,16 @@ type ShoppingCartProviderProps = {
   children: ReactNode;
 };
 
+type AddOn = {
+  name: string;
+  price: number;
+  isAdded: boolean;
+};
+
 type CartItem = {
   id: number;
   quantity: number;
+  addOns: AddOn[];
 };
 
 type ShoppingCartContextType = {
@@ -16,6 +23,8 @@ type ShoppingCartContextType = {
   closeCart: () => void;
   clearCart: () => void;
   getItemQuantity: (id: number) => number;
+  getSelectedAddOns: (id: number) => AddOn[] | undefined;
+  updateAddOns: (id: number, addOn: string) => AddOn[] | undefined;
   increaseCartQuantity: (id: number) => void;
   decreaseCartQuantity: (id: number) => void;
   setCartQuantity: (id: number, newQuantity: number) => void;
@@ -27,6 +36,13 @@ type ShoppingCartContextType = {
 };
 
 const ShoppingCartContext = createContext({} as ShoppingCartContextType);
+
+const defaultAddOns: AddOn[] = [
+  { name: "open-face", price: 30, isAdded: false },
+  { name: "diamond-dust", price: 30, isAdded: false },
+  { name: "chipped-tooth", price: 30, isAdded: false },
+  { name: "missing-tooth", price: 50, isAdded: false },
+];
 
 export function useShoppingCart() {
   return useContext(ShoppingCartContext);
@@ -55,10 +71,34 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     return cartItems.find((item) => item.id === id)?.quantity || 0;
   }
 
+  function getSelectedAddOns(id: number): AddOn[] | undefined {
+    const addOns = cartItems.find((item) => item.id === id)?.addOns;
+    return addOns?.filter((addOn) => addOn.isAdded);
+  }
+
+  function updateAddOns(id: number, addOn: string): AddOn[] | undefined {
+    const addOns = cartItems.find((item) => item.id === id)?.addOns;
+    if (!addOns) return undefined;
+    const updatedAddOns = addOns.map((item) => {
+      if (item.name === addOn) {
+        return { ...item, isAdded: !item.isAdded };
+      }
+      return item;
+    });
+
+    setCartItems((currItems) => {
+      return currItems.map((item) => {
+        if (item.id === id) {
+          return { ...item, addOns: updatedAddOns };
+        } else return item;
+      });
+    });
+  }
+
   function increaseCartQuantity(id: number) {
     setCartItems((currItems) => {
       if (currItems.find((item) => item.id === id) == null) {
-        return [...currItems, { id, quantity: 1 }];
+        return [...currItems, { id, quantity: 1, addOns: defaultAddOns }];
       } else {
         return currItems.map((item) => {
           if (item.id === id) {
@@ -103,6 +143,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
             switch (item.quantity) {
               case 1:
                 newQuantity = 0;
+                item.addOns = [];
                 break;
               case 6:
                 newQuantity = 1;
@@ -132,7 +173,10 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   function setCartQuantity(id: number, newQuantity: number) {
     setCartItems((currItems) => {
       if (!currItems.find((item) => item.id === id)) {
-        return [...currItems, { id, quantity: newQuantity }];
+        return [
+          ...currItems,
+          { id, quantity: newQuantity, addOns: defaultAddOns },
+        ];
       }
       if (newQuantity === 0) {
         return currItems.filter((item) => item.id !== id);
@@ -146,7 +190,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     });
   }
 
-  function removeFromCart(id: number) {
+  function removeFromCart(id: number): void {
     setCartItems((currItems) => {
       return currItems.filter((item) => item.id !== id);
     });
@@ -156,6 +200,8 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     <ShoppingCartContext.Provider
       value={{
         getItemQuantity,
+        getSelectedAddOns,
+        updateAddOns,
         increaseCartQuantity,
         decreaseCartQuantity,
         setCartQuantity,
