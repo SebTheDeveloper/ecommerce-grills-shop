@@ -9,7 +9,8 @@ type ShoppingCartProps = {
 };
 
 export function ShoppingCart({ isOpen }: ShoppingCartProps) {
-  const { closeCart, cartItems, toggleLoading } = useShoppingCart();
+  const { closeCart, cartItems, toggleLoading, getAddOnTotal } =
+    useShoppingCart();
 
   async function goToCheckoutLink(): Promise<void> {
     try {
@@ -60,7 +61,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
         <Offcanvas.Title>Cart</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <Stack gap={3}>
+        <Stack gap={4}>
           {cartItems.map((item) => (
             <CartItem key={item.id} {...item} />
           ))}
@@ -68,13 +69,21 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
             className="ms-auto fw-bold fs-4"
             style={{ marginTop: "0.25rem" }}
           >
-            Total{" "}
-            {formatCurrency(
-              cartItems.reduce((total, cartItem) => {
-                const item = storeItems.find((i) => i.id === cartItem.id);
-                return total + (item?.prices["1"] || 0) * cartItem.quantity;
-              }, 0)
-            )}
+            <span style={{ opacity: "0.9", fontWeight: "500" }}>Total</span>
+            <span
+              style={{
+                color: "rgb(25, 135, 84)",
+                fontSize: "1.1em",
+                marginLeft: "0.25em",
+              }}
+            >
+              {formatCurrency(
+                cartItems.reduce((total, cartItem) => {
+                  const item = storeItems.find((i) => i.id === cartItem.id);
+                  return total + (item?.prices["1"] || 0) * cartItem.quantity;
+                }, 0) + getAddOnTotal()
+              )}
+            </span>
           </div>
           <Button onClick={processCheckout} style={{ fontSize: "1.25rem" }}>
             Checkout

@@ -59,7 +59,7 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
             key={quantity}
             value={quantity}
             size="lg"
-            id={"form-select-animation"}
+            id="form-select-animation"
             style={{
               opacity: "0.9",
               margin: "1.75em 0",
@@ -107,7 +107,7 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
                 >
                   -
                 </Button>
-                <div>
+                <div id="form-select-animation" key={quantity}>
                   <span className="fs-3">{quantity}</span> in cart
                 </div>
                 <Button
@@ -121,7 +121,7 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
               </div>
               {selectedAddOns && (
                 <div
-                  id={"form-select-animation"}
+                  id="form-select-animation"
                   key={selectedAddOns.length}
                   style={{
                     border:
@@ -136,7 +136,7 @@ export function StoreItem({ id, name, prices, imgUrl }: StoreItemProps) {
                       selectedAddOns.length > 0
                         ? "0 0 4px gold"
                         : "0 0 4px rgb(240, 240, 240)",
-                    opacity: "0.9",
+                    opacity: selectedAddOns.length > 0 ? "0.9" : "0.7",
                   }}
                 >
                   {selectedAddOns.length} add-ons selected

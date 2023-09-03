@@ -29,9 +29,13 @@ export function AddOn({ id, addOn }: AddOnProps) {
   }
 
   const selectedAddOns = getSelectedAddOns(id);
-  const isSelected = selectedAddOns?.find(
+  let isSelected = selectedAddOns?.find(
     (item) => item.name === addOnFormatted
   )?.isAdded;
+
+  if (isSelected === undefined) {
+    isSelected = false;
+  }
 
   return (
     <div
@@ -48,18 +52,29 @@ export function AddOn({ id, addOn }: AddOnProps) {
         type="checkbox"
         checked={isSelected}
         id={`inline-checkbox-1`}
+        style={{
+          opacity: isSelected ? "1" : "0.85",
+        }}
         onChange={() => updateAddOns(id, addOnFormatted)}
       ></Form.Check>
-      <p style={{ fontWeight: "300", flexBasis: "100%" }}>{addOn}</p>
+      <p
+        style={{
+          opacity: isSelected ? "0.9" : "0.75",
+          fontWeight: "300",
+          flexBasis: "100%",
+        }}
+      >
+        {addOn}
+      </p>
       <p
         style={{
           marginLeft: "1em",
           fontSize: "1.2em",
           color: "rgb(25, 135, 84)",
-          opacity: "0.75",
+          opacity: isSelected ? "0.9" : "0.55",
         }}
       >
-        {addOnFormatted === "missing-tooth" ? "$50" : "$30"}
+        {addOnFormatted === "missing-tooth" ? "+$50" : "+$30"}
       </p>
     </div>
   );

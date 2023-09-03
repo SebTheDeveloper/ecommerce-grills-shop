@@ -1,7 +1,11 @@
 import { Button, Stack } from "react-bootstrap";
-import { useShoppingCart } from "../context/ShoppingCartContext";
+import {
+  AddOn as AddOnType,
+  useShoppingCart,
+} from "../context/ShoppingCartContext";
 import storeItems from "../data/items.json";
 import { formatCurrency } from "../utilities/formatCurrency";
+import { useEffect, useState } from "react";
 
 type CartItemProps = {
   id: number;
@@ -9,9 +13,26 @@ type CartItemProps = {
 };
 
 export function CartItem({ id, quantity }: CartItemProps) {
-  const { removeFromCart } = useShoppingCart();
+  const { removeFromCart, getSelectedAddOns } = useShoppingCart();
+  const [addOns, setAddOns] = useState<AddOnType[] | undefined>();
+  const [addOnTotal, setAddOnTotal] = useState(0);
   const item = storeItems.find((i) => i.id === id);
-  if (item == null) return null;
+
+  useEffect(() => {
+    const selectedAddOns = getSelectedAddOns(id);
+    if (selectedAddOns !== undefined && selectedAddOns.length > 0) {
+      setAddOns(selectedAddOns);
+    }
+  }, []);
+
+  useEffect(() => {
+    const totals = addOns?.reduce((total, curr) => total + curr.price, 0);
+    if (totals != undefined && totals > 0) {
+      setAddOnTotal(totals);
+    }
+  }, [addOns]);
+
+  if (item == null) return <div>Item not found!</div>;
 
   return (
     <Stack
@@ -31,21 +52,29 @@ export function CartItem({ id, quantity }: CartItemProps) {
         }}
       />
       <div className="me-auto">
-        <div>
-          {item.name}{" "}
+        <div className="fs-7">{item.name}</div>
+        <div style={{ fontSize: "1rem", opacity: "0.85" }}>
+          <span>{formatCurrency(item.prices["1"])}</span>
           {quantity > 1 && (
             <span
-              style={{ fontSize: "0.95rem", opacity: "0.85", color: "gold" }}
+              style={{
+                fontSize: "0.95rem",
+                opacity: "0.85",
+                color: "gold",
+                marginLeft: "0.25em",
+              }}
             >
               x{quantity}
             </span>
           )}
-        </div>
-        <div style={{ fontSize: "1rem", opacity: "0.85" }}>
-          {formatCurrency(item.prices["1"])}
+          <div>
+            {addOns?.map((item, index) => (
+              <InCartAddOn addOn={item} key={index} />
+            ))}
+          </div>
         </div>
       </div>
-      <div> {formatCurrency(item.prices["1"] * quantity)}</div>
+      <div> {formatCurrency(item.prices["1"] * quantity + addOnTotal)}</div>
       <Button
         variant="danger"
         size="sm"
@@ -55,5 +84,20 @@ export function CartItem({ id, quantity }: CartItemProps) {
         &times;
       </Button>
     </Stack>
+  );
+}
+
+type InCartAddOnProps = {
+  addOn: AddOnType;
+};
+
+function InCartAddOn({ addOn }: InCartAddOnProps) {
+  return (
+    <>
+      <div style={{ fontSize: "0.8em", opacity: "0.9" }}>
+        <span style={{ marginRight: "0.25em" }}>{`+ $${addOn.price}`}</span>
+        <span>{addOn.name}</span>
+      </div>
+    </>
   );
 }

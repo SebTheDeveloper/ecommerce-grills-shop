@@ -6,7 +6,7 @@ type ShoppingCartProviderProps = {
   children: ReactNode;
 };
 
-type AddOn = {
+export type AddOn = {
   name: string;
   price: number;
   isAdded: boolean;
@@ -24,6 +24,7 @@ type ShoppingCartContextType = {
   clearCart: () => void;
   getItemQuantity: (id: number) => number;
   getSelectedAddOns: (id: number) => AddOn[] | undefined;
+  getAddOnTotal: () => number;
   updateAddOns: (id: number, addOn: string) => AddOn[] | undefined;
   increaseCartQuantity: (id: number) => void;
   decreaseCartQuantity: (id: number) => void;
@@ -74,6 +75,18 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   function getSelectedAddOns(id: number): AddOn[] | undefined {
     const addOns = cartItems.find((item) => item.id === id)?.addOns;
     return addOns?.filter((addOn) => addOn.isAdded);
+  }
+
+  function getAddOnTotal(): number {
+    return cartItems?.reduce((total, curr) => {
+      return (
+        total +
+        curr.addOns.reduce(
+          (total, addOn) => (addOn.isAdded ? total + addOn.price : total),
+          0
+        )
+      );
+    }, 0);
   }
 
   function updateAddOns(id: number, addOn: string): AddOn[] | undefined {
@@ -201,6 +214,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
       value={{
         getItemQuantity,
         getSelectedAddOns,
+        getAddOnTotal,
         updateAddOns,
         increaseCartQuantity,
         decreaseCartQuantity,
