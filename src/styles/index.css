@@ -1,5 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
 body {
   font-family: "Roboto", sans-serif !important;
+}
+.title-wrapper {
+  font-family: "Lobster", cursive;
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 0.5rem 0;
+}
+.title {
+  font-size: 4rem;
+}
+.title-wrapper :not(.title) {
+  opacity: 0.9;
+  font-size: 1.25rem;
+  color: gold;
 }
 .nav-link {
   opacity: 0.8;
@@ -67,5 +83,31 @@ body {
 @keyframes shrink-in {
   from {
     transform: scale(1.02);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .title {
+    font-size: 3rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  .title {
+    font-size: 2.25rem;
+  }
+  #shop {
+    font-size: 1.75rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .title-wrapper {
+    padding: 1rem 0;
+  }
+  .title {
+    font-size: 2rem;
+  }
+  #shop {
+    font-size: 1.5rem;
   }
 }
