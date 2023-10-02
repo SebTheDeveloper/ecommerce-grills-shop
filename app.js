@@ -53,7 +53,7 @@ app.post("/create-checkout-session", async (req, res) => {
               price_data: {
                 currency: "usd",
                 product_data: {
-                  name: `${storeItem.name} *add-on* - ${addOn.name}`,
+                  name: `${storeItem.name} *add-on* | ${addOn.name}`,
                 },
                 unit_amount: addOn.price * 100,
               },
@@ -66,6 +66,10 @@ app.post("/create-checkout-session", async (req, res) => {
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
+      billing_address_collection: "required",
+      shipping_address_collection: {
+        allowed_countries: ["US"],
+      },
       mode: "payment",
       line_items: lineItems,
       success_url: `${process.env.SERVER_URL}/success`,

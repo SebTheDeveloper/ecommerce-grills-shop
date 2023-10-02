@@ -1,4 +1,10 @@
+import { useEffect } from "react";
+
 export function About() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <div className="title-wrapper">
@@ -7,20 +13,29 @@ export function About() {
           grillz done right the first time.
         </span>
       </div>
-      <div style={{display: 'flex', flexDirection: 'column', gap: '1.5rem', fontSize: '1.25rem'}}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "1.5rem",
+          fontSize: "1.25rem",
+          padding: '0.5rem',
+          opacity: '0.95'
+        }}
+      >
         <p>
-          At Palm Beach Custom Grillz, excellence is our promise. We're dedicated
-          to delivering top-tier grillz without breaking the bank.
+          At Palm Beach Custom Grillz, excellence is our promise. We're
+          dedicated to delivering top-tier grillz without breaking the bank.
         </p>
         <p>
           With a spectrum spanning from NPG to luxurious 18K Gold, our
           custom-fitted grillz cater to every style.
         </p>
         <p>
-          From timeless classics to daring fangs and beyond, our collection offers
-          a plethora of choices. We believe in lasting impressions, which is why
-          our deep cuts come standard, ensuring a permanent and flawless look, all
-          at no extra cost.
+          From timeless classics to daring fangs and beyond, our collection
+          offers a plethora of choices. We believe in lasting impressions, which
+          is why our deep cuts come standard, ensuring a permanent and flawless
+          look, all at no extra cost.
         </p>
         <p>
           While our prices remain competitive, compromising on quality is not an
