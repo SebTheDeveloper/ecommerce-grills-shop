@@ -33,7 +33,7 @@ export function Navbar() {
       style={{
         backgroundColor: "rgb( 5, 5, 5)",
         boxShadow: "0 1px 4px rgba(250, 250, 250, 0.2)",
-        minHeight: "4rem",
+        minHeight: "6rem",
       }}
     >
       <Container>

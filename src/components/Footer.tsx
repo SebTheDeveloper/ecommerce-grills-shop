@@ -22,9 +22,11 @@ export function Footer() {
           </a>
         </div>
         <div className="footer-text">
-          <p>Terms and Conditions</p>
           <a href="tel:561-677-1584">
             <p>561-677-1584</p>
+          </a>
+          <a href="/terms-and-conditions">
+            <p>Terms and Conditions</p>
           </a>
           <a href="mailto:palmbeachcustomgrillz@gmail.com">
             <p>palmbeachcustomgrillz@gmail.com</p>

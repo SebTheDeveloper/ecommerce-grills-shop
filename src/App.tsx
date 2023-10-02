@@ -1,11 +1,12 @@
-import { Routes, Route } from "react-router-dom";
-import { Container } from "react-bootstrap";
-import { Store } from "./pages/Store";
 import { About } from "./pages/About";
+import { Container } from "react-bootstrap";
+import { Footer } from "./components/Footer";
 import { Navbar } from "./components/Navbar";
-import { useShoppingCart } from "./context/ShoppingCartContext";
+import { Store } from "./pages/Store";
 import { Success } from "./pages/Success";
-import { Footer } from './components/Footer'
+import { TermsAndConditions } from "./pages/TermsAndConditions";
+import { Routes, Route } from "react-router-dom";
+import { useShoppingCart } from "./context/ShoppingCartContext";
 
 export default function App() {
   const { isLoading } = useShoppingCart();
@@ -21,6 +22,10 @@ export default function App() {
           <Route path="/" element={<Store />} />
           <Route path="/about" element={<About />} />
           <Route path="/success" element={<Success />} />
+          <Route
+            path="/terms-and-conditions"
+            element={<TermsAndConditions />}
+          />
         </Routes>
       </Container>
       <Footer />

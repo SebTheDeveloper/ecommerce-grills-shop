@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { LogoTitle } from "../components/LogoTitle";
 
 export function About() {
   useEffect(() => {
@@ -6,14 +7,9 @@ export function About() {
   }, []);
 
   return (
-    <div style={{ minHeight: "75vh" }}>
-      <div className="title-wrapper">
-        <div className="title">Palm Beach Custom Grillz</div>
-        <span style={{ marginLeft: "auto" }}>
-          grillz done right the first time.
-        </span>
-      </div>
-      <div className="about-content">
+    <div style={{ minHeight: "70vh" }} className="fade-in">
+      <LogoTitle />
+      <div className="text-content">
         <p>
           At Palm Beach Custom Grillz, excellence is our promise. We're
           dedicated to delivering top-tier grillz without breaking the bank.
@@ -24,9 +20,12 @@ export function About() {
         </p>
         <p>
           From timeless classics to daring fangs and beyond, our collection
-          offers a plethora of choices. We believe in lasting impressions, which
-          is why our deep cuts come standard, ensuring a permanent and flawless
-          look, all at no extra cost.
+          offers a plethora of choices.
+        </p>
+        <p>
+          We believe in lasting impressions, which is why our deep cuts come
+          standard, ensuring a permanent and flawless look, all at no extra
+          cost.
         </p>
         <p>
           While our prices remain competitive, compromising on quality is not an

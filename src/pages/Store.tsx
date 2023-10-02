@@ -1,18 +1,12 @@
-// import { useState } from "react";
-
 import { Row, Col } from "react-bootstrap";
 import storeItems from "../data/items.json";
 import { StoreItem } from "../components/StoreItem";
+import { LogoTitle } from "../components/LogoTitle";
 
 export function Store() {
   return (
     <>
-      <div className="title-wrapper">
-        <div className="title">Palm Beach Custom Grillz</div>
-        <span style={{ marginLeft: "auto" }}>
-          grillz done right the first time.
-        </span>
-      </div>
+      <LogoTitle />
       <h1 style={{ marginBottom: "1.25rem", opacity: "0.97" }} id="shop">
         Shop
       </h1>

@@ -3,14 +3,17 @@ import { useShoppingCart } from "../context/ShoppingCartContext";
 import { CartItem } from "./CartItem";
 import { formatCurrency } from "../utilities/formatCurrency";
 import storeItems from "../data/items.json";
+import { useNavigate } from "react-router-dom";
 
 type ShoppingCartProps = {
   isOpen: boolean;
 };
 
 export function ShoppingCart({ isOpen }: ShoppingCartProps) {
-  const { closeCart, cartItems, toggleLoading, getAddOnTotal } =
+  const { closeCart, cartItems, toggleLoading, getAddOnTotal, termsAccepted } =
     useShoppingCart();
+
+  const navigate = useNavigate();
 
   async function goToCheckoutLink(): Promise<void> {
     try {
@@ -41,9 +44,16 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
   }
 
   function processCheckout() {
-    if (cartItems.length > 0) {
+    if (cartItems.length > 0 && termsAccepted) {
       toggleLoading();
       goToCheckoutLink();
+    } else if (!termsAccepted) {
+      closeCart();
+      navigate("/terms-and-conditions");
+
+      setTimeout(() => {
+        alert("You must accept Terms and Conditions to continue");
+      }, 0);
     }
   }
 

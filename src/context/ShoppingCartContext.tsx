@@ -28,12 +28,14 @@ type ShoppingCartContextType = {
   updateAddOns: (id: number, addOn: string) => AddOn[] | undefined;
   increaseCartQuantity: (id: number) => void;
   decreaseCartQuantity: (id: number) => void;
+  cartQuantity: number;
   setCartQuantity: (id: number, newQuantity: number) => void;
   removeFromCart: (id: number) => void;
   toggleLoading: () => void;
   isLoading: boolean;
-  cartQuantity: number;
   cartItems: CartItem[];
+  termsAccepted: boolean;
+  setTermsAccepted: (value: boolean) => void;
 };
 
 const ShoppingCartContext = createContext({} as ShoppingCartContextType);
@@ -56,6 +58,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     []
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
@@ -230,6 +233,8 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         clearCart,
         toggleLoading,
         isLoading,
+        termsAccepted,
+        setTermsAccepted,
       }}
     >
       {children}
