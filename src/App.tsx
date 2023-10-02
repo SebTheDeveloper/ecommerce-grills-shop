@@ -5,7 +5,7 @@ import { About } from "./pages/About";
 import { Navbar } from "./components/Navbar";
 import { useShoppingCart } from "./context/ShoppingCartContext";
 import { Success } from "./pages/Success";
-// import { Footer } from './components/Footer'
+import { Footer } from './components/Footer'
 
 export default function App() {
   const { isLoading } = useShoppingCart();
@@ -23,7 +23,7 @@ export default function App() {
           <Route path="/success" element={<Success />} />
         </Routes>
       </Container>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

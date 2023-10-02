@@ -6,23 +6,14 @@ export function About() {
   }, []);
 
   return (
-    <>
+    <div style={{ minHeight: "75vh" }}>
       <div className="title-wrapper">
         <div className="title">Palm Beach Custom Grillz</div>
         <span style={{ marginLeft: "auto" }}>
           grillz done right the first time.
         </span>
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "1.5rem",
-          fontSize: "1.25rem",
-          padding: '0.5rem',
-          opacity: '0.95'
-        }}
-      >
+      <div className="about-content">
         <p>
           At Palm Beach Custom Grillz, excellence is our promise. We're
           dedicated to delivering top-tier grillz without breaking the bank.
@@ -43,6 +34,6 @@ export function About() {
           Palm Beach Custom Grillz.
         </p>
       </div>
-    </>
+    </div>
   );
 }

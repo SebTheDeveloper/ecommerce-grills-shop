@@ -1,12 +1,22 @@
-@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@font-face {
+  font-family: "Lobster";
+  src: url("../assets/fonts/Lobster-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
 body {
   font-family: "Roboto", sans-serif !important;
 }
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .title-wrapper {
   font-family: "Lobster", cursive;
   text-align: center;
-  margin-bottom: 3rem;
+  margin: 3rem 0;
   padding: 0.5rem 0;
 }
 .title {
@@ -62,6 +72,48 @@ body {
 #form-select-animation {
   animation: shrink-in 0.2s ease-in-out;
 }
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  opacity: 0.95;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  letter-spacing: 1px;
+}
+.footer {
+  margin-top: 3rem;
+  background-color: rgb(5, 5, 5);
+  box-shadow: rgba(250, 250, 250, 0.2) 0px 1px 4px;
+}
+.footer .container {
+  display: flex;
+  padding: 2rem 0;
+  align-items: center;
+  justify-content: space-between;
+}
+.socials svg {
+  width: 2rem;
+  fill: white;
+}
+.socials svg:last-of-type {
+  margin-left: 0.75rem;
+}
+.socials svg:hover {
+  fill: #0d6efd;
+}
+.footer a {
+  text-decoration: none;
+  color: white;
+}
+.footer-text {
+  cursor: pointer;
+  text-align: right;
+}
+.footer-text p:hover,
+.footer a:hover {
+  color: #0d6efd;
+}
 @keyframes loading-animation {
   from {
     transform: rotate(0deg);
@@ -89,6 +141,19 @@ body {
 @media screen and (max-width: 800px) {
   .title {
     font-size: 3rem;
+  }
+  .about-content {
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    letter-spacing: 0.5px;
+  }
+  .footer .container {
+    flex-direction: column;
+    gap: 3rem;
+    padding: 2.5rem 0;
+  }
+  .footer-text {
+    text-align: center;
   }
 }
 @media screen and (max-width: 500px) {
