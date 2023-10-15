@@ -52,7 +52,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
       navigate("/terms-and-conditions");
 
       setTimeout(() => {
-        alert("You must accept Terms and Conditions to continue");
+        alert("Please accept Terms and Conditions to continue");
       }, 0);
     }
   }

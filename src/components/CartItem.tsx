@@ -16,7 +16,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
   const { removeFromCart, getSelectedAddOns } = useShoppingCart();
   const [addOns, setAddOns] = useState<AddOnType[] | undefined>();
   const [addOnTotal, setAddOnTotal] = useState(0);
-  const item = storeItems.find((i) => i.id === id);
+  const item = storeItems.find((i) => i.id === Number(String(id)[0]));
 
   useEffect(() => {
     const selectedAddOns = getSelectedAddOns(id);
@@ -55,18 +55,16 @@ export function CartItem({ id, quantity }: CartItemProps) {
         <div className="fs-7">{item.name}</div>
         <div style={{ fontSize: "1rem", opacity: "0.85" }}>
           <span>{formatCurrency(item.prices["1"])}</span>
-          {quantity > 1 && (
-            <span
-              style={{
-                fontSize: "0.95rem",
-                opacity: "0.85",
-                color: "gold",
-                marginLeft: "0.25em",
-              }}
-            >
-              x{quantity}
-            </span>
-          )}
+          <span
+            style={{
+              fontSize: "0.95rem",
+              opacity: "0.85",
+              color: "gold",
+              marginLeft: "0.25em",
+            }}
+          >
+            x{quantity}
+          </span>
           <div>
             {addOns?.map((item, index) => (
               <InCartAddOn addOn={item} key={index} />

@@ -12,22 +12,25 @@ export type AddOn = {
   isAdded: boolean;
 };
 
-type CartItem = {
+export type CartItem = {
   id: number;
   quantity: number;
   addOns: AddOn[];
 };
 
-type ShoppingCartContextType = {
+export type ShoppingCartContextType = {
   openCart: () => void;
   closeCart: () => void;
   clearCart: () => void;
   getItemQuantity: (id: number) => number;
+  getAggregateItemQuantity: (id: number) => number;
+  getMultiItem: (id: number) => CartItem[] | null;
+  createMultiItem: (id: number) => void;
   getSelectedAddOns: (id: number) => AddOn[] | undefined;
   getAddOnTotal: () => number;
   updateAddOns: (id: number, addOn: string) => AddOn[] | undefined;
-  increaseCartQuantity: (id: number) => void;
-  decreaseCartQuantity: (id: number) => void;
+  increaseItemToothQuantity: (id: number) => void;
+  decreaseItemToothQuantity: (id: number) => void;
   cartQuantity: number;
   setCartQuantity: (id: number, newQuantity: number) => void;
   removeFromCart: (id: number) => void;
@@ -60,10 +63,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
 
-  const cartQuantity = cartItems.reduce(
-    (quantity, item) => item.quantity + quantity,
-    0
-  );
+  const cartQuantity = cartItems.reduce((quantity) => quantity + 1, 0);
 
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
@@ -75,9 +75,63 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     return cartItems.find((item) => item.id === id)?.quantity || 0;
   }
 
+  function getAggregateItemQuantity(id: number) {
+    const multiItems = getMultiItem(id);
+    if (multiItems) {
+      return multiItems.length;
+    }
+
+    return 0;
+  }
+
   function getSelectedAddOns(id: number): AddOn[] | undefined {
     const addOns = cartItems.find((item) => item.id === id)?.addOns;
     return addOns?.filter((addOn) => addOn.isAdded);
+  }
+
+  function getMultiItem(id: number): CartItem[] | null {
+    const idStr = String(id)[0];
+
+    const filteredItems = cartItems.filter((item) => {
+      const itemIdStr = String(item.id);
+      return itemIdStr.startsWith(idStr);
+    });
+
+    return filteredItems.length > 0 ? filteredItems : null;
+  }
+
+  function createMultiItem(id: number): void {
+    const existingMultiItems = getMultiItem(id);
+
+    let currHighestId: number;
+
+    if (existingMultiItems && existingMultiItems.length > 1) {
+      currHighestId = Number(
+        Math.max(...existingMultiItems.map((item) => item.id))
+      );
+    } else {
+      currHighestId = id;
+    }
+
+    const idStr = String(currHighestId);
+    const firstDigit = idStr[0];
+
+    let nextHighestId: number = currHighestId + 1;
+
+    if (String(nextHighestId)[0] !== firstDigit) {
+      nextHighestId = Number(idStr + "1");
+    }
+
+    setCartItems((currItems) => {
+      return [
+        ...currItems,
+        {
+          id: nextHighestId,
+          quantity: 1,
+          addOns: defaultAddOns,
+        },
+      ];
+    });
   }
 
   function getAddOnTotal(): number {
@@ -114,7 +168,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     });
   }
 
-  function increaseCartQuantity(id: number) {
+  function increaseItemToothQuantity(id: number) {
     setCartItems((currItems) => {
       if (currItems.find((item) => item.id === id) == null) {
         return [...currItems, { id, quantity: 1, addOns: defaultAddOns }];
@@ -151,7 +205,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     });
   }
 
-  function decreaseCartQuantity(id: number) {
+  function decreaseItemToothQuantity(id: number) {
     setCartItems((currItems) => {
       if (currItems.find((item) => item.id === id)?.quantity === 1) {
         return currItems.filter((item) => item.id !== id);
@@ -219,11 +273,14 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     <ShoppingCartContext.Provider
       value={{
         getItemQuantity,
+        getAggregateItemQuantity,
         getSelectedAddOns,
+        getMultiItem,
+        createMultiItem,
         getAddOnTotal,
         updateAddOns,
-        increaseCartQuantity,
-        decreaseCartQuantity,
+        increaseItemToothQuantity,
+        decreaseItemToothQuantity,
         setCartQuantity,
         removeFromCart,
         cartItems,
