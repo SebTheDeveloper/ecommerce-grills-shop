@@ -52,7 +52,21 @@ export function CartItem({ id, quantity }: CartItemProps) {
         }}
       />
       <div className="me-auto">
-        <div className="fs-7">{item.name}</div>
+        <div className="fs-7">
+          {item.name}
+          {String(id).length > 1 && (
+            <div
+              className="text-primary"
+              style={{
+                fontSize: "0.5em",
+                opacity: "0.75",
+                marginBottom: "0.4em",
+              }}
+            >
+              added piece
+            </div>
+          )}
+        </div>
         <div style={{ fontSize: "1rem", opacity: "0.85" }}>
           <span>{formatCurrency(item.prices["1"])}</span>
           <span
@@ -77,7 +91,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
         variant="danger"
         size="sm"
         style={{ marginLeft: "0.1em" }}
-        onClick={() => removeFromCart(item.id)}
+        onClick={() => removeFromCart(id)}
       >
         &times;
       </Button>

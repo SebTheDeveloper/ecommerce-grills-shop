@@ -31,7 +31,7 @@ app.post("/create-checkout-session", async (req, res) => {
 
     req.body.items.forEach((item) => {
       const storeItem = storeItems.find(
-        (storeItem) => storeItem.id === item.id
+        (storeItem) => storeItem.id === Number(String(item.id)[0])
       );
       // Main items
       lineItems.push({

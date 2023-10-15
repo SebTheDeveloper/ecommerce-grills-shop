@@ -89,7 +89,9 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
             >
               {formatCurrency(
                 cartItems.reduce((total, cartItem) => {
-                  const item = storeItems.find((i) => i.id === cartItem.id);
+                  const item = storeItems.find(
+                    (i) => i.id === Number(String(cartItem.id)[0])
+                  );
                   return total + (item?.prices["1"] || 0) * cartItem.quantity;
                 }, 0) + getAddOnTotal()
               )}
