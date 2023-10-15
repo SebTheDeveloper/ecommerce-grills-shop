@@ -45,6 +45,7 @@ export function AddOn({ id, addOn }: AddOnProps) {
         justifyContent: "space-between",
         width: "100%",
         padding: "0em 1.2em",
+        animation: "grow-in 0.8s ease-in-out",
       }}
     >
       <Form.Check

@@ -53,19 +53,18 @@ export function CartItem({ id, quantity }: CartItemProps) {
       />
       <div className="me-auto">
         <div className="fs-7">
-          {item.name}
           {String(id).length > 1 && (
-            <div
+            <span
               className="text-primary"
               style={{
-                fontSize: "0.5em",
-                opacity: "0.75",
-                marginBottom: "0.4em",
+                fontSize: "0.7em",
+                opacity: "0.7",
               }}
             >
-              added piece
-            </div>
+              +
+            </span>
           )}
+          {item.name}
         </div>
         <div style={{ fontSize: "1rem", opacity: "0.85" }}>
           <span>{formatCurrency(item.prices["1"])}</span>

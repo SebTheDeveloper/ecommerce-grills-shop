@@ -158,6 +158,13 @@ function ItemPiece({
   } = useShoppingCart();
   const selectedAddOns = getSelectedAddOns(id);
   const aggregateQuantity = getAggregateItemQuantity(id);
+  // const [isRemoving, setIsRemoving] = useState(false);
+
+  const processRemoveItem = () => {
+    // setIsRemoving(true);
+    removeFromCart(id);
+    // setIsRemoving(false);
+  };
 
   return (
     <>
@@ -166,7 +173,7 @@ function ItemPiece({
         style={{
           borderTop:
             aggregateQuantity > 1 && String(id).length > 1
-              ? "1px solid black"
+              ? "1px solid rgba(0,0,0,0.8)"
               : "none",
         }}
       >
@@ -181,7 +188,7 @@ function ItemPiece({
                 style={{ fontWeight: "300", opacity: "0.7", color: "gold" }}
               >
                 {aggregateQuantity}{" "}
-                {aggregateQuantity > 1 ? "pieces in cart" : "piece in cart"}
+                {aggregateQuantity > 1 ? "items in cart" : "item in cart"}
               </span>
             )}
           </>
@@ -218,7 +225,10 @@ function ItemPiece({
             (addOn, index) => <AddOn id={id} addOn={addOn} key={index} />
           )}
       </Card.Title>
-      <div className="mt-auto">
+      <div
+        className="mt-auto"
+        style={{ animation: "grow-in 0.8s ease-in-out" }}
+      >
         {quantity === 0 && !isMultiItem ? (
           <AddToCartButton
             id={id}
@@ -229,7 +239,7 @@ function ItemPiece({
         ) : (
           quantity > 0 && (
             <div
-              style={{ gap: "0.5rem" }}
+              style={{ gap: "0.5rem", animation: "grow-in 0.8s ease-in-out" }}
               className="d-flex align-items-center flex-column fade-in"
             >
               <div
@@ -305,7 +315,10 @@ function ItemPiece({
           )
         )}
         {quantity > 0 && (
-          <span className="mt-3 d-flex align-items-center justify-content-center gap-2">
+          <span
+            className="mt-3 d-flex align-items-center justify-content-center gap-2"
+            style={{ animation: "grow-in 0.8s ease-in-out" }}
+          >
             {isLastItem && (
               <>
                 <Button
@@ -315,16 +328,10 @@ function ItemPiece({
                   variant="outline-secondary"
                   size="sm"
                 >
-                  + Add another piece
+                  + Add another item
                 </Button>
                 or
-                <Button
-                  onClick={() => {
-                    removeFromCart(id);
-                  }}
-                  variant="danger"
-                  size="sm"
-                >
+                <Button onClick={processRemoveItem} variant="danger" size="sm">
                   {" "}
                   Remove
                 </Button>

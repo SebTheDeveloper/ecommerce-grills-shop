@@ -44,16 +44,18 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
   }
 
   function processCheckout() {
-    if (cartItems.length > 0 && termsAccepted) {
-      toggleLoading();
-      goToCheckoutLink();
-    } else if (!termsAccepted) {
-      closeCart();
-      navigate("/terms-and-conditions");
+    if (cartItems.length > 0) {
+      if (termsAccepted) {
+        toggleLoading();
+        goToCheckoutLink();
+      } else if (!termsAccepted) {
+        closeCart();
+        navigate("/terms-and-conditions");
 
-      setTimeout(() => {
-        alert("Please accept Terms and Conditions to continue");
-      }, 0);
+        setTimeout(() => {
+          alert("Please accept Terms and Conditions to continue");
+        }, 0);
+      }
     }
   }
 
