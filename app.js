@@ -29,6 +29,19 @@ app.post("/create-checkout-session", async (req, res) => {
   try {
     const lineItems = [];
 
+    // Shipping cost
+    lineItems.push({
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: "Shipping",
+          description: "Shipping Cost",
+        },
+        unit_amount: 810,
+      },
+      quantity: 1,
+    });
+
     req.body.items.forEach((item) => {
       const storeItem = storeItems.find(
         (storeItem) => storeItem.id === Number(String(item.id)[0])
