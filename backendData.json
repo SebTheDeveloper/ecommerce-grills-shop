@@ -1,14 +1,14 @@
 [
   {
     "id": 1,
-    "name": "18K Gold",
+    "name": "10K Gold",
     "prices": {
-      "1": 130,
-      "6": 780,
-      "8": 1040,
-      "10": 1300
+      "1": 75,
+      "6": 450,
+      "8": 600,
+      "10": 750
     },
-    "imgUrl": "/imgs/book.jpg"
+    "imgUrl": "/imgs/10k.jpg"
   },
   {
     "id": 2,
@@ -19,18 +19,18 @@
       "8": 800,
       "10": 1000
     },
-    "imgUrl": "/imgs/banana.jpg"
+    "imgUrl": "/imgs/14k.jpg"
   },
   {
     "id": 3,
-    "name": "10K Gold",
+    "name": "18K Gold",
     "prices": {
-      "1": 75,
-      "6": 450,
-      "8": 600,
-      "10": 750
+      "1": 130,
+      "6": 780,
+      "8": 1040,
+      "10": 1300
     },
-    "imgUrl": "/imgs/car.jpg"
+    "imgUrl": "/imgs/18k.jpg"
   },
   {
     "id": 4,
@@ -41,7 +41,7 @@
       "8": 320,
       "10": 400
     },
-    "imgUrl": "/imgs/computer.jpg"
+    "imgUrl": "/imgs/silver.jpg"
   },
   {
     "id": 5,
@@ -52,6 +52,6 @@
       "8": 240,
       "10": 300
     },
-    "imgUrl": "/imgs/book.jpg"
+    "imgUrl": "/imgs/NPG.jpg"
   }
 ]
