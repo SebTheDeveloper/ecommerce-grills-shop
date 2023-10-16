@@ -78,25 +78,47 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
             <CartItem key={item.id} {...item} />
           ))}
           <div
-            className="ms-auto fw-bold fs-4"
+            className="ms-auto fw-bold fs-4 d-flex align-items-center justify-content-center flex-column"
             style={{ marginTop: "0.25rem" }}
           >
-            <span style={{ opacity: "0.9", fontWeight: "500" }}>Total</span>
-            <span
-              style={{
-                color: "rgb(25, 135, 84)",
-                fontSize: "1.1em",
-                marginLeft: "0.25em",
-              }}
-            >
-              {formatCurrency(
-                cartItems.reduce((total, cartItem) => {
-                  const item = storeItems.find(
-                    (i) => i.id === Number(String(cartItem.id)[0])
-                  );
-                  return total + (item?.prices["1"] || 0) * cartItem.quantity;
-                }, 0) + getAddOnTotal()
-              )}
+            {cartItems.length > 0 && (
+              <span
+                style={{
+                  opacity: "0.77",
+                  fontWeight: "300",
+                  fontSize: "0.77em",
+                  marginBottom: "0.3rem",
+                  letterSpacing: "0.2px",
+                }}
+                className="ms-auto"
+              >
+                <span style={{ fontSize: "0.9em" }}>+</span>$8.10 Shipping
+              </span>
+            )}
+            <span>
+              <span style={{ opacity: "0.9", fontWeight: "500" }}>Total</span>
+              <span
+                style={{
+                  color: "rgb(25, 135, 84)",
+                  fontSize: "1.1em",
+                  marginLeft: "0.25em",
+                }}
+              >
+                {cartItems.length > 0
+                  ? formatCurrency(
+                      cartItems.reduce((total, cartItem) => {
+                        const item = storeItems.find(
+                          (i) => i.id === Number(String(cartItem.id)[0])
+                        );
+                        return (
+                          total + (item?.prices["1"] || 0) * cartItem.quantity
+                        );
+                      }, 0) +
+                        getAddOnTotal() +
+                        8.1
+                    )
+                  : "$0.00"}
+              </span>
             </span>
           </div>
           <Button onClick={processCheckout} style={{ fontSize: "1.25rem" }}>
