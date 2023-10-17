@@ -57,6 +57,11 @@ export function TermsAndConditions() {
         given item. In certain cases, we might need additional verification or
         information before we can accept your order.
       </p>
+      
+      <p>
+        <strong>Turnaround Time:</strong> Turnaround Time: 2-3 weeks for all
+        custom grillz orders.
+      </p>
 
       <p>
         <strong>Valuables and Responsibility:</strong> We will not be held
@@ -65,15 +70,15 @@ export function TermsAndConditions() {
       </p>
 
       <p>
-        <strong>Refund Policy:</strong> If your custom grillz order is less than
-        45 days old and hasn't been made, you can request a 100% refund.
-        However, no refunds will be issued for completed custom grillz or if we
-        haven't received a suitable mold within 45 days of the transaction. The
-        responsibility for a proper mold lies with you; an ill-fitting grillz
-        may result from an inaccurate mold. In the event of dissatisfaction due
-        to a bad mold, we can create a new one for half the cost, with you
-        sending back the gold grill. Shipping and insurance are not included in
-        this offer.
+        <strong>Refund Policy:</strong> Refund Policy: If your custom grillz
+        order is less than 45 days old and hasn't been made or started yet, you
+        can request a 100% refund. However, no refunds will be issued for orders
+        that have been started, completed or if we haven't received a suitable
+        mold within 45 days of the transaction. The responsibility for a proper
+        mold lies with you; an ill-fitting grillz may result from an inaccurate
+        mold. In the event of dissatisfaction due to a bad mold, we can create a
+        new one for half the cost, with you sending back the gold grill.
+        Shipping and insurance are not included in this offer.
       </p>
 
       <p>

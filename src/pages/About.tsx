@@ -7,7 +7,7 @@ export function About() {
   }, []);
 
   return (
-    <div style={{ minHeight: "70vh" }} className="fade-in">
+    <div style={{ minHeight: "70vh" }} className="fade-in" id="about">
       <LogoTitle />
       <div className="text-content">
         <p>

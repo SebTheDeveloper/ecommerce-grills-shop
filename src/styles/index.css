@@ -190,6 +190,9 @@ body {
     padding: 0.5rem;
     letter-spacing: 0.5px;
   }
+  #about .text-content {
+    padding: 1.25rem;
+  }
   .footer .container {
     flex-direction: column;
     gap: 3rem;
