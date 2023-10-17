@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "10K Gold",
+    "name": "10K Yellow Gold",
     "prices": {
       "1": 75,
       "6": 450,
@@ -12,7 +12,7 @@
   },
   {
     "id": 2,
-    "name": "14K Gold",
+    "name": "14K Yellow Gold",
     "prices": {
       "1": 100,
       "6": 600,
@@ -23,7 +23,7 @@
   },
   {
     "id": 3,
-    "name": "18K Gold",
+    "name": "18K Yellow Gold",
     "prices": {
       "1": 130,
       "6": 780,
@@ -45,7 +45,7 @@
   },
   {
     "id": 5,
-    "name": "NPG",
+    "name": "Non Precious Yellow Gold",
     "prices": {
       "1": 30,
       "6": 180,
