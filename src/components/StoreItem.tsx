@@ -4,7 +4,7 @@ import { useShoppingCart } from "../context/ShoppingCartContext";
 import { useEffect, useRef, useState } from "react";
 import { AddOn } from "./AddOn";
 
-type StoreItemProps = {
+export type StoreItemProps = {
   id: number;
   name: string;
   prices: {
@@ -209,18 +209,44 @@ function ItemPiece({
             }}
             onChange={(e) => setCartQuantity(id, Number(e.target.value))}
           >
-            <option value="0">
-              {quantity > 0 ? "Remove From Cart" : "See Prices"}
-            </option>
-            <option value="1">1 tooth for {formatCurrency(prices["1"])}</option>
-            <option value="6">6 teeth for {formatCurrency(prices["6"])}</option>
-            <option value="8">8 teeth for {formatCurrency(prices["8"])}</option>
-            <option value="10">
-              10 teeth for {formatCurrency(prices["10"])}
-            </option>
+            {name === "Mold Kit" ? (
+              <>
+                <option value="0">
+                  {quantity > 0 ? "Remove From Cart" : "See Prices"}
+                </option>
+                <option value="1">
+                  Mold Kit - Top Only {formatCurrency(prices["1"])}
+                </option>
+                <option value="2">
+                  Mold Kit - Bottom Only {formatCurrency(prices["2"])}
+                </option>
+                <option value="3">
+                  Mold Kit - Top & Bottom {formatCurrency(prices["3"])}
+                </option>
+              </>
+            ) : (
+              <>
+                <option value="0">
+                  {quantity > 0 ? "Remove From Cart" : "See Prices"}
+                </option>
+                <option value="1">
+                  1 tooth for {formatCurrency(prices["1"])}
+                </option>
+                <option value="6">
+                  6 teeth for {formatCurrency(prices["6"])}
+                </option>
+                <option value="8">
+                  8 teeth for {formatCurrency(prices["8"])}
+                </option>
+                <option value="10">
+                  10 teeth for {formatCurrency(prices["10"])}
+                </option>
+              </>
+            )}
           </Form.Select>
         )}
-        {quantity > 0 &&
+        {name !== "Mold Kit" &&
+          quantity > 0 &&
           ["Open Face", "Diamond Dust", "Chipped Tooth", "Missing Tooth"].map(
             (addOn, index) => <AddOn id={id} addOn={addOn} key={index} />
           )}
@@ -237,6 +263,7 @@ function ItemPiece({
             increaseItemToothQuantity={increaseItemToothQuantity}
           />
         ) : (
+          name !== "Mold Kit" &&
           quantity > 0 && (
             <div
               style={{ gap: "0.5rem", animation: "grow-in 0.8s ease-in-out" }}
@@ -321,16 +348,20 @@ function ItemPiece({
           >
             {isLastItem && (
               <>
-                <Button
-                  onClick={() => {
-                    createMultiItem(id);
-                  }}
-                  variant="outline-secondary"
-                  size="sm"
-                >
-                  + Add another item
-                </Button>
-                or
+                {name !== "Mold Kit" && (
+                  <>
+                    <Button
+                      onClick={() => {
+                        createMultiItem(id);
+                      }}
+                      variant="outline-secondary"
+                      size="sm"
+                    >
+                      + Add another item
+                    </Button>
+                    or
+                  </>
+                )}
                 <Button onClick={processRemoveItem} variant="danger" size="sm">
                   {" "}
                   Remove

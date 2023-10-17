@@ -1,5 +1,5 @@
 import { Button, Offcanvas, Stack } from "react-bootstrap";
-import { useShoppingCart } from "../context/ShoppingCartContext";
+import { CartItem as CartItemType, useShoppingCart } from "../context/ShoppingCartContext";
 import { CartItem } from "./CartItem";
 import { formatCurrency } from "../utilities/formatCurrency";
 import storeItems from "../data/items.json";
@@ -107,12 +107,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
                 {cartItems.length > 0
                   ? formatCurrency(
                       cartItems.reduce((total, cartItem) => {
-                        const item = storeItems.find(
-                          (i) => i.id === Number(String(cartItem.id)[0])
-                        );
-                        return (
-                          total + (item?.prices["1"] || 0) * cartItem.quantity
-                        );
+                        return formatTotal(total, cartItem);
                       }, 0) +
                         getAddOnTotal() +
                         8.1
@@ -128,4 +123,17 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
       </Offcanvas.Body>
     </Offcanvas>
   );
+}
+
+
+function formatTotal(total: number, cartItem: CartItemType) {
+  const item = storeItems.find(
+    (i) => i.id === Number(String(cartItem.id)[0])
+  );
+
+  if (Number(String(cartItem.id)[0]) === 6) {
+    return total + ((item?.prices as unknown as { [key: string]: number })[cartItem.quantity]);
+  }
+
+  return total + (item?.prices["1"] || 0) * cartItem.quantity;
 }

@@ -53,5 +53,15 @@
       "10": 300
     },
     "imgUrl": "/imgs/NPG.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Mold Kit",
+    "prices": {
+      "1": 25,
+      "2": 25,
+      "3": 30
+    },
+    "imgUrl": "/imgs/mold-kit-top-and-bottom.png"
   }
 ]

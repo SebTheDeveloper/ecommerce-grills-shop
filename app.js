@@ -46,16 +46,33 @@ app.post("/create-checkout-session", async (req, res) => {
       const storeItem = storeItems.find(
         (storeItem) => storeItem.id === Number(String(item.id)[0])
       );
+
+      let isMoldKit = false;
+      let moldKitSelection = "";
+      if (storeItem.name === "Mold Kit") {
+        isMoldKit = true;
+
+        if (item.quantity === 1) {
+          moldKitSelection = "top only";
+        } else if (item.quantity === 2) {
+          moldKitSelection = "bottom only";
+        } else if (item.quantity === 3) {
+          moldKitSelection = "top & bottom";
+        }
+      }
+
       // Main items
       lineItems.push({
         price_data: {
           currency: "usd",
           product_data: {
-            name: storeItem.name,
+            name: isMoldKit ? `Mold Kit | ${moldKitSelection}` : storeItem.name,
           },
-          unit_amount: storeItem.prices["1"] * 100,
+          unit_amount: isMoldKit
+            ? storeItem.prices[item.quantity || 1] * 100
+            : storeItem.prices["1"] * 100,
         },
-        quantity: item.quantity,
+        quantity: isMoldKit ? 1 : item.quantity,
       });
 
       // Add-ons

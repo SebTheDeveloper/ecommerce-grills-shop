@@ -34,6 +34,20 @@ export function CartItem({ id, quantity }: CartItemProps) {
 
   if (item == null) return <div>Item not found!</div>;
 
+  let isMoldKit = false;
+  let moldKitSelection = "";
+  if (id === 6) {
+    isMoldKit = true;
+
+    if (quantity === 1) {
+      moldKitSelection = " - top only";
+    } else if (quantity === 2) {
+      moldKitSelection = " - bottom only";
+    } else if (quantity === 3) {
+      moldKitSelection = " - top & bottom";
+    }
+  }
+
   return (
     <Stack
       direction="horizontal"
@@ -67,16 +81,24 @@ export function CartItem({ id, quantity }: CartItemProps) {
           {item.name}
         </div>
         <div style={{ fontSize: "1rem", opacity: "0.85" }}>
-          <span>{formatCurrency(item.prices["1"])}</span>
+          <span>
+            {isMoldKit
+              ? formatCurrency(
+                  (item.prices as unknown as { [key: string]: number })[
+                    String(quantity)
+                  ]
+                )
+              : formatCurrency(item.prices["1"])}
+          </span>
           <span
             style={{
-              fontSize: "0.95rem",
+              fontSize: !isMoldKit ? "0.95rem" : "0.8rem",
               opacity: "0.85",
               color: "gold",
               marginLeft: "0.25em",
             }}
           >
-            x{quantity}
+            {!isMoldKit ? `x${quantity}` : moldKitSelection}
           </span>
           <div>
             {addOns?.map((item, index) => (
@@ -85,7 +107,16 @@ export function CartItem({ id, quantity }: CartItemProps) {
           </div>
         </div>
       </div>
-      <div> {formatCurrency(item.prices["1"] * quantity + addOnTotal)}</div>
+      <div>
+        {" "}
+        {isMoldKit
+          ? formatCurrency(
+              (item.prices as unknown as { [key: string]: number })[
+                String(quantity)
+              ]
+            )
+          : formatCurrency(item.prices["1"] * quantity + addOnTotal)}
+      </div>
       <Button
         variant="danger"
         size="sm"
