@@ -129,6 +129,9 @@ body {
 .footer a:hover {
   color: #0d6efd;
 }
+.footer-text p .mobile-break {
+  display: none;
+}
 @keyframes loading-animation {
   from {
     transform: rotate(0deg);
@@ -191,7 +194,7 @@ body {
     letter-spacing: 0.5px;
   }
   #about .text-content {
-    padding: 1.25rem;
+    padding: 1rem;
   }
   .footer .container {
     flex-direction: column;
@@ -220,5 +223,11 @@ body {
   }
   #shop {
     font-size: 1.5rem;
+  }
+  .footer-text p .mobile-break {
+    display: block;
+  }
+  .footer p:has(.mobile-break) {
+    line-height: 1.75em;
   }
 }
