@@ -48,6 +48,23 @@ export function CartItem({ id, quantity }: CartItemProps) {
     }
   }
 
+  let veryGoodPrice = 0;
+
+  switch (quantity) {
+    case 1:
+      veryGoodPrice = Number(item.prices["1"]);
+      break;
+      case 6:
+        veryGoodPrice = Number(item.prices["6"]);
+        break;
+      case 8:
+        veryGoodPrice = Number(item.prices["8"]);
+        break;
+      case 10:
+        veryGoodPrice = Number(item.prices["10"]);
+        break;
+  }
+
   return (
     <Stack
       direction="horizontal"
@@ -82,13 +99,15 @@ export function CartItem({ id, quantity }: CartItemProps) {
         </div>
         <div style={{ fontSize: "1rem", opacity: "0.85" }}>
           <span>
-            {isMoldKit
-              ? formatCurrency(
-                  (item.prices as unknown as { [key: string]: number })[
-                    String(quantity)
-                  ]
-                )
-              : formatCurrency(item.prices["1"])}
+            {
+              isMoldKit
+                ? formatCurrency(
+                    (item.prices as unknown as { [key: string]: number })[
+                      String(quantity)
+                    ]
+                  )
+                : formatCurrency(veryGoodPrice) /* FIX */
+            }
           </span>
           <span
             style={{
@@ -98,7 +117,9 @@ export function CartItem({ id, quantity }: CartItemProps) {
               marginLeft: "0.25em",
             }}
           >
-            {!isMoldKit ? `x${quantity}` : moldKitSelection}
+            {!isMoldKit
+              ? `(${quantity} ${quantity > 1 ? "teeth" : "tooth"})`
+              : moldKitSelection}
           </span>
           <div>
             {addOns?.map((item, index) => (
@@ -109,13 +130,15 @@ export function CartItem({ id, quantity }: CartItemProps) {
       </div>
       <div>
         {" "}
-        {isMoldKit
-          ? formatCurrency(
-              (item.prices as unknown as { [key: string]: number })[
-                String(quantity)
-              ]
-            )
-          : formatCurrency(item.prices["1"] * quantity + addOnTotal)}
+        {
+          isMoldKit
+            ? formatCurrency(
+                (item.prices as unknown as { [key: string]: number })[
+                  String(quantity)
+                ]
+              )
+            : formatCurrency(veryGoodPrice + addOnTotal) /* FIX */
+        }
       </div>
       <Button
         variant="danger"

@@ -1,5 +1,8 @@
 import { Button, Offcanvas, Stack } from "react-bootstrap";
-import { CartItem as CartItemType, useShoppingCart } from "../context/ShoppingCartContext";
+import {
+  CartItem as CartItemType,
+  useShoppingCart,
+} from "../context/ShoppingCartContext";
 import { CartItem } from "./CartItem";
 import { formatCurrency } from "../utilities/formatCurrency";
 import storeItems from "../data/items.json";
@@ -125,15 +128,32 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
   );
 }
 
-
 function formatTotal(total: number, cartItem: CartItemType) {
-  const item = storeItems.find(
-    (i) => i.id === Number(String(cartItem.id)[0])
-  );
+  const item = storeItems.find((i) => i.id === Number(String(cartItem.id)[0]));
 
-  if (Number(String(cartItem.id)[0]) === 6) {
-    return total + ((item?.prices as unknown as { [key: string]: number })[cartItem.quantity]);
+  let veryGoodPrice = 0;
+
+  switch (cartItem.quantity) {
+    case 1:
+      veryGoodPrice = Number(item?.prices["1"]);
+      break;
+    case 6:
+      veryGoodPrice = Number(item?.prices["6"]);
+      break;
+    case 8:
+      veryGoodPrice = Number(item?.prices["8"]);
+      break;
+    case 10:
+      veryGoodPrice = Number(item?.prices["10"]);
+      break;
   }
 
-  return total + (item?.prices["1"] || 0) * cartItem.quantity;
+  if (Number(String(cartItem.id)[0]) === 6) {
+    return (
+      total +
+      (item?.prices as unknown as { [key: string]: number })[cartItem.quantity]
+    );
+  }
+
+  return total + (veryGoodPrice || 0);
 }
