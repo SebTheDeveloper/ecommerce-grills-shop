@@ -35,7 +35,7 @@ export function Footer() {
             href="https://www.google.com/maps/place/560+Village+Blvd+102+23,+West+Palm+Beach,+FL+33409/@26.7140454,-80.0996973,17z/data=!4m5!3m4!1s0x88d8d61e1219aef3:0xec3199e2a2ac84aa!8m2!3d26.7140454!4d-80.0971224?entry=ttu"
             target="_blank"
           >
-            <p>560 Village Blvd Suite 102 #23,<span className="mobile-break"></span> West Palm Beach, FL 33409</p>
+            <p>560 Village Blvd Suite 120 #23,<span className="mobile-break"></span> West Palm Beach, FL 33409</p>
           </a>
         </div>
       </div>

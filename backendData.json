@@ -44,17 +44,6 @@
     "imgUrl": "/imgs/silver.jpg"
   },
   {
-    "id": 5,
-    "name": "NPG - Non Precious Yellow Gold",
-    "prices": {
-      "1": 30,
-      "6": 180,
-      "8": 240,
-      "10": 300
-    },
-    "imgUrl": "/imgs/NPG.jpg"
-  },
-  {
     "id": 6,
     "name": "Mold Kit",
     "prices": {
@@ -63,5 +52,49 @@
       "3": 30
     },
     "imgUrl": "/imgs/mold-kit-top-and-bottom.png"
+  },
+  {
+    "id": 7,
+    "name": "Silver w/ VVS Moissanite",
+    "prices": {
+      "1": 200,
+      "6": 900,
+      "8": 1200,
+      "10": 1500
+    },
+    "imgUrl": "/imgs/silvervvsmoissanite.jpg"
+  },
+  {
+    "id": 8,
+    "name": "10K Gold w/ VVS Lab Diamonds",
+    "prices": {
+      "1": 1600,
+      "6": 2400,
+      "8": 3200,
+      "10": 4000
+    },
+    "imgUrl": "/imgs/goldvvslabdiamonds.jpg"
+  },
+  {
+    "id": 9,
+    "name": "10K Gold w/ VVS Moissanite",
+    "prices": {
+      "1": 300,
+      "6": 1590,
+      "8": 2120,
+      "10": 2650
+    },
+    "imgUrl": "/imgs/placeholder.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Gold w/ VVS Natural Diamonds",
+    "prices": {
+      "1": 2200,
+      "6": 3300,
+      "8": 4400,
+      "10": 5500
+    },
+    "imgUrl": "/imgs/placeholder.jpg"
   }
 ]

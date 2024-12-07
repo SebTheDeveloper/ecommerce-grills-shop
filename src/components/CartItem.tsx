@@ -54,15 +54,15 @@ export function CartItem({ id, quantity }: CartItemProps) {
     case 1:
       veryGoodPrice = Number(item.prices["1"]);
       break;
-      case 6:
-        veryGoodPrice = Number(item.prices["6"]);
-        break;
-      case 8:
-        veryGoodPrice = Number(item.prices["8"]);
-        break;
-      case 10:
-        veryGoodPrice = Number(item.prices["10"]);
-        break;
+    case 6:
+      veryGoodPrice = Number(item.prices["6"]);
+      break;
+    case 8:
+      veryGoodPrice = Number(item.prices["8"]);
+      break;
+    case 10:
+      veryGoodPrice = Number(item.prices["10"]);
+      break;
   }
 
   return (
