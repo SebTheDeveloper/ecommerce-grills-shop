@@ -54,6 +54,9 @@ export function CartItem({ id, quantity }: CartItemProps) {
     case 1:
       veryGoodPrice = Number(item.prices["1"]);
       break;
+    case 4:
+      veryGoodPrice = Number(item.prices["4"]);
+      break;
     case 6:
       veryGoodPrice = Number(item.prices["6"]);
       break;
@@ -137,7 +140,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
                   String(quantity)
                 ]
               )
-            : formatCurrency(veryGoodPrice + addOnTotal) /* FIX */
+            : formatCurrency(veryGoodPrice + addOnTotal)
         }
       </div>
       <Button

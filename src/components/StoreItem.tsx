@@ -229,9 +229,16 @@ function ItemPiece({
                 <option value="0">
                   {quantity > 0 ? "Remove From Cart" : "See Prices"}
                 </option>
-                <option value="1">
-                  1 tooth for {formatCurrency(prices["1"])}
-                </option>
+                {prices["1"] && (
+                  <option value="1">
+                    1 tooth for {formatCurrency(prices["1"])}
+                  </option>
+                )}
+                {prices["4"] && (
+                  <option value="4">
+                    4 teeth for {formatCurrency(prices["4"])}
+                  </option>
+                )}
                 <option value="6">
                   6 teeth for {formatCurrency(prices["6"])}
                 </option>

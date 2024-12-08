@@ -68,7 +68,7 @@
     "id": 8,
     "name": "10K Gold w/ VVS Lab Diamonds",
     "prices": {
-      "1": 1600,
+      "4": 1600,
       "6": 2400,
       "8": 3200,
       "10": 4000
@@ -88,9 +88,9 @@
   },
   {
     "id": 10,
-    "name": "Gold w/ VVS Natural Diamonds",
+    "name": "Gold w/ VS-VVS Natural Diamonds",
     "prices": {
-      "1": 2200,
+      "4": 2200,
       "6": 3300,
       "8": 4400,
       "10": 5500

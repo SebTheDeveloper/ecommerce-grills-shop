@@ -137,6 +137,9 @@ function formatTotal(total: number, cartItem: CartItemType) {
     case 1:
       veryGoodPrice = Number(item?.prices["1"]);
       break;
+    case 4:
+      veryGoodPrice = Number(item?.prices["4"]);
+      break;
     case 6:
       veryGoodPrice = Number(item?.prices["6"]);
       break;
