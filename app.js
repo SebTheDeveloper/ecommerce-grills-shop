@@ -67,6 +67,9 @@ app.post("/create-checkout-session", async (req, res) => {
         case 1:
           veryGoodPrice = Number(storeItem?.prices["1"]);
           break;
+        case 4:
+          veryGoodPrice = Number(storeItem?.prices["4"]);
+          break;
         case 6:
           veryGoodPrice = Number(storeItem?.prices["6"]);
           break;
