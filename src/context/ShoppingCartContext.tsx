@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 import { ShoppingCart } from "../components/ShoppingCart";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import storeItems from "../data/items.json";
 
 type ShoppingCartProviderProps = {
   children: ReactNode;
@@ -171,13 +172,20 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   function increaseItemToothQuantity(id: number) {
     setCartItems((currItems) => {
       if (currItems.find((item) => item.id === id) == null) {
-        return [...currItems, { id, quantity: 1, addOns: defaultAddOns }];
+        if (storeItems.find((item) => item.id === id)?.prices["4"]) {
+          return [...currItems, { id, quantity: 4, addOns: defaultAddOns }];
+        } else {
+          return [...currItems, { id, quantity: 1, addOns: defaultAddOns }];
+        }
       } else {
         return currItems.map((item) => {
           if (item.id === id) {
-            let newQuantity: 0 | 1 | 6 | 8 | 10;
+            let newQuantity: 0 | 1 | 4 | 6 | 8 | 10;
             switch (item.quantity) {
               case 1:
+                newQuantity = 6;
+                break;
+              case 4:
                 newQuantity = 6;
                 break;
               case 6:
@@ -190,7 +198,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
                 newQuantity = 10;
                 break;
               default:
-                newQuantity = 1;
+                newQuantity = 0;
                 console.log(
                   "Cart increment function encountered an error, item quantity set to 1"
                 );
@@ -210,35 +218,41 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
       if (currItems.find((item) => item.id === id)?.quantity === 1) {
         return currItems.filter((item) => item.id !== id);
       } else {
-        return currItems.map((item) => {
-          if (item.id === id) {
-            let newQuantity: 0 | 1 | 6 | 8 | 10;
-            switch (item.quantity) {
-              case 1:
-                newQuantity = 0;
-                item.addOns = [];
-                break;
-              case 6:
-                newQuantity = 1;
-                break;
-              case 8:
-                newQuantity = 6;
-                break;
-              case 10:
-                newQuantity = 8;
-                break;
-              default:
-                newQuantity = 0;
-                console.log(
-                  "Cart decrement function encountered an error, item quantity set to 0"
-                );
-                break;
+        return currItems
+          .map((item) => {
+            if (item.id === id) {
+              let newQuantity: 0 | 1 | 4 | 6 | 8 | 10;
+              switch (item.quantity) {
+                case 1:
+                case 4:
+                  newQuantity = 0;
+                  break;
+                case 6:
+                  newQuantity = storeItems.find(
+                    (storeItem) => storeItem.id === id
+                  )?.prices["4"]
+                    ? 4
+                    : 1;
+                  break;
+                case 8:
+                  newQuantity = 6;
+                  break;
+                case 10:
+                  newQuantity = 8;
+                  break;
+                default:
+                  newQuantity = 0;
+                  console.log(
+                    "Cart decrement function encountered an error, item quantity set to 0"
+                  );
+                  break;
+              }
+              return { ...item, quantity: newQuantity };
+            } else {
+              return item;
             }
-            return { ...item, quantity: newQuantity };
-          } else {
-            return item;
-          }
-        });
+          })
+          .filter((item) => item.quantity > 0);
       }
     });
   }
