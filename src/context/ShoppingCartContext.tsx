@@ -123,12 +123,22 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
       nextHighestId = Number(idStr + "1");
     }
 
+    let startingQuantity: number;
+
+    if (
+      storeItems.find((item) => item.id === Number(String(id)[0]))?.prices["4"]
+    ) {
+      startingQuantity = 4;
+    } else {
+      startingQuantity = 1;
+    }
+
     setCartItems((currItems) => {
       return [
         ...currItems,
         {
           id: nextHighestId,
-          quantity: 1,
+          quantity: startingQuantity,
           addOns: defaultAddOns,
         },
       ];
